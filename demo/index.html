@@ -9,11 +9,121 @@
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="amcharts/amcharts/amcharts.js"></script>
 	<script type="text/javascript" src="amcharts/amcharts/serial.js"></script>
-	<script src="functions/charts.js"></script>
 	<title>[Graficas_mike]</title>
 	<script>
-            
-        </script>
+        var chartData = [
+        {
+            "alumno": "1",
+            "promedio": 6.4,
+            "color": "#FF0F00"
+        },
+        {
+            "alumno": "2",
+            "promedio": 6.6,
+            "color": "#FF6600"
+        },
+        {
+            "alumno": "3",
+            "promedio": 5.2,
+            "color": "#FF9E01"
+        },
+        {
+            "alumno": "4",
+            "promedio": 4.2,
+            "color": "#FCD202"
+        },
+        {
+            "alumno": "5",
+            "promedio": 5,
+            "color": "#F8FF01"
+        },
+        {
+            "alumno": "6",
+            "promedio": 5.6,
+            "color": "#B0DE09"
+        },
+        {
+            "alumno": "7",
+            "promedio": 5,
+            "color": "#04D215"
+        },
+        {
+            "alumno": "8",
+            "promedio": 5.6,
+            "color": "#0D8ECF"
+        },
+        {
+            "alumno": "9",
+            "promedio": 5,
+            "color": "#0D52D1"
+        },
+        {
+            "alumno": "10",
+            "promedio": 5.6,
+            "color": "#2A0CD0"
+        },
+        {
+            "alumno": "11",
+            "promedio": 3.8,
+            "color": "#8A0CCF"
+        },
+        {
+            "alumno": "12",
+            "promedio": 5.6,
+            "color": "#CD0D74"
+        }
+    ];
+
+    console.log(chartData);
+
+
+
+    AmCharts.ready(function () {
+        // SERIAL CHART
+        console.log("entre")
+        chart = new AmCharts.AmSerialChart();
+        chart.dataProvider = chartData;
+        chart.categoryField = "alumno";
+        // the following two lines makes chart 3D
+        chart.depth3D = 20;
+        chart.angle = 30;
+        // AXES
+        // category
+        var categoryAxis = chart.categoryAxis;
+        categoryAxis.labelRotation = 90;
+        categoryAxis.dashLength = 5;
+        categoryAxis.gridPosition = "start";
+
+        // value
+        var valueAxis = new AmCharts.ValueAxis();
+        valueAxis.title = "Calificaciones";
+        valueAxis.dashLength = 5;
+        chart.addValueAxis(valueAxis);
+
+        // GRAPH
+        var graph = new AmCharts.AmGraph();
+        graph.valueField = "promedio";
+        graph.colorField = "color";
+        graph.balloonText = "<span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>";
+        graph.type = "column";
+        graph.lineAlpha = 0;
+        graph.fillAlphas = 1;
+        chart.addGraph(graph);
+
+        // CURSOR
+        var chartCursor = new AmCharts.ChartCursor();
+        chartCursor.cursorAlpha = 0;
+        chartCursor.zoomable = false;
+        chartCursor.categoryBalloonEnabled = false;
+        chart.addChartCursor(chartCursor);
+
+        chart.creditsPosition = "top-right";
+
+
+        // WRITE
+        chart.write("graficas");
+    });   
+    </script>
 </head>
 <body>
 	<div class="container-fluid">
